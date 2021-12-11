@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            .pole{
+                display: inline-block;
+                border: 1px solid black
+            }
+            #lib{
+                width: 420px;
+                height: auto;
+                text-align: center;
+            }
+            .bibl{
+                border: 1px solid black;
+                width: 100px;
+                display: inline-block;
+                margin-top: -15px;
+            }
+            .ksiazka{
+                border: 1px solid black;
+                width: auto;
+            }
+        </style>
+    </head>
+    <body>
+       <div id="form" class="pole">
+       <h1>Formularz dodawania książki do biblioteki</h1>
+           <form id="formularz">
+            Tytuł<input type="text" id="title" required minlength="1"><br>
+            Autor<input type="text" id="autor" required minlength="3"><br>
+            Priorytet przeczytania książki (1-najmniej; 5- najwięcej)<input type="number" id="priority"><br>
+            <select id="category">
+                <option value="0" selected disabled>Wybierz kategorię</option>
+                <option value="kryminal">Kryminały</option>
+                <option value="thriller">Thrillery</option>
+                <option value="podroznicze">Podróżnicze</option>
+            </select><br>
+            <button onclick="dodaj()">Dodaj książkę do biblioteki</button>
+           </form>
+        </div>
+        
+        <div id="lib" class="pole">
+           <h1>Biblioteka</h1>
+           
+           <div class="bibl" id="tytu">Tytuł książki</div>
+           <div class="bibl" id="auto">Autor książki</div>
+           <div class="bibl" id="prio">Priorytet przeczytania</div>
+           <div class="bibl" id="cate">Kategoria książki</div>
+           
+        </div>
+        <script>
+            var elt = document.getElementById("tytu");      //utworzenie zmiennych dla divów w bibliotece
+            var ela = document.getElementById("auto");
+            var elp = document.getElementById("prio");
+            var elc = document.getElementById("cate");
+            
+            if(!localStorage.getItem("number")){            //sprawdzenie czy zmienna 'number' w lS nie istnieje
+                localStorage.setItem("number", 0)
+             }
+            var liczba = (localStorage.getItem("number"))*1;
+            console.log(localStorage.getItem("number"))
+            var liczba1 = 0;
+            
+            
+            for(var i=1; i <= liczba; i++){     //pętla która wyświetla zawartość biblioteki po otwarciu strony
+                i = i*1
+                elt.innerHTML += "<div class='ksiazka'>"+i+". "+localStorage.getItem("tyt"+i)+"</div>";
+                ela.innerHTML += "<div class='ksiazka'>"+i+". "+localStorage.getItem("aut"+i)+"</div>";
+                elp.innerHTML += "<div class='ksiazka'>"+i+". "+localStorage.getItem("pri"+i)+"</div>";
+                elc.innerHTML += "<div class='ksiazka'>"+i+". "+localStorage.getItem("cat"+i)+"</div>";
+                }
+            
+            function dodaj(){           //funkcja dodająca książkę do biblioteki
+                liczba += 1;
+                liczba1 = liczba
+                
+                //utworzenie zmiennych w lS dla poszczególych elementów dodawanej książki
+                localStorage.setItem("pri"+liczba, document.getElementById("priority").value);
+                if(localStorage.getItem("pri"+liczba) >= 1 && localStorage.getItem("pri"+liczba) <= 5){
+                localStorage.setItem("tyt"+liczba, document.getElementById("title").value);
+                localStorage.setItem("aut"+liczba, document.getElementById("autor").value);
+                localStorage.setItem("cat"+liczba, document.getElementById("category").value);
+                
+                localStorage.setItem("number", liczba)  //nadanie nowej wartości zmiennej 'number' w lS
+    
+                
+                for(var i=1; i <= liczba; i++){       //pętla która wyświetla zawartość biblioteki po dodaniu nowej książki
+                elt.innerHTML += "<div class='ksiazka'>"+localStorage.getItem("tyt"+i)+"</div>";
+                ela.innerHTML += "<div class='ksiazka'>"+localStorage.getItem("aut"+i)+"</div>";
+                elp.innerHTML += "<div class='ksiazka'>"+localStorage.getItem("pri"+i)+"</div>";
+                elc.innerHTML += "<div class='ksiazka'>"+localStorage.getItem("cat"+i)+"</div>";
+                }
+                }
+                else{
+                    alert("Wpisana przez Ciebie liczba nie mieści się w zakresie od 1 do 5!");
+                    liczba = liczba1-1;
+                    localStorage.setItem("number", liczba);
+                }
+            }
+        </script>    
+    </body>
+</html>

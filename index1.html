@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+       <meta charset="utf-8">
+        <style>
+            #liczby{
+                width:200px;
+                height: auto;
+                padding: 2px;
+            }
+            .liczby{
+                display: inline-block;
+                border: 1px solid black;
+                width: 80px;
+                height: auto;
+            }
+        </style>
+    </head>
+    <body>
+       <button onclick="losuj()">Losuj liczby!</button>
+        <div id="liczby">
+            <table>
+               <tr>
+                   <th>Parzyste</th><th>Nieparzyste</th>
+               </tr>
+               <tr>
+                   <td><div class="liczby" id="parz"></div></td>
+                   <td><div class="liczby" id="nparz"></div></td>
+                </tr>
+            </table>
+        </div>
+    
+    
+    <script>
+        const divp = document.getElementById("parz")
+        const divn = document.getElementById("nparz")
+        const il = 20;
+        var tab = new Array();
+        var liczb = 0;
+        var a = 1;
+        var b = 100;
+        
+        function losuj(){
+            divp.innerHTML="";                  //wyczyszczenie divów z poprzednich liczb
+            divn.innerHTML="";
+            
+            
+            for(var i=0; i < il; i++){          //losowanie liczb
+                 var liczba = Math.floor(Math.random()*100+1);
+                tab[i] = liczba;
+            }
+            tab.sort((a, b) => a - b);           //sortowanie tablicy rosnąco
+        
+            for(var i=0; i < il; i++){           //wyszukiwanie liczb parzystych
+                liczb = tab[i]
+                if(liczb%2==0){
+                    divp.innerHTML += liczb+"<br>";
+                }
+            }
+            
+            for(var i=0; i < il; i++){           //wyszukiwanie liczb nieparzystych
+                liczb = tab[i]
+                if(!(liczb%2==0)){
+                    divn.innerHTML += liczb+"<br>";
+                }
+            }
+        }
+            
+        
+    </script>
+    </body>
+    
+</html>
