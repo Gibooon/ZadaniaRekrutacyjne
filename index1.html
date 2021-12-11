@@ -51,14 +51,14 @@
             }
             tab.sort((a, b) => a - b);           //sortowanie tablicy rosnąco
         
-            for(var i=0; i < il; i++){           //wyszukiwanie liczb parzystych
+            for(var i=0; i < il; i++){           //wyszukiwanie liczb parzystych i dodawanie do kolumny z liczbami parzystymi
                 liczb = tab[i]
                 if(liczb%2==0){
                     divp.innerHTML += liczb+"<br>";
                 }
             }
             
-            for(var i=0; i < il; i++){           //wyszukiwanie liczb nieparzystych
+            for(var i=0; i < il; i++){           //wyszukiwanie liczb nieparzystych i dodawanie do kolumny z liczbami nieparzystymi
                 liczb = tab[i]
                 if(!(liczb%2==0)){
                     divn.innerHTML += liczb+"<br>";
